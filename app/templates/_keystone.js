@@ -9,7 +9,7 @@ var swig = require('swig');<% } else if (viewEngine == 'nunjucks') { %>
 var cons = require('consolidate');
 var nunjucks = require('nunjucks');<% } else if (viewEngine == 'dust') { %>
 var cons = require('consolidate');
-var nunjucks = require('dustjs-linkedin');<% } %>
+var dust = require('dustjs-linkedin');<% } %>
 <% if (viewEngine === 'swig') { %>
 // Disable swig's bulit-in template caching, express handles it
 swig.setDefaults({ cache: process.env.NODE_ENV === 'development' ? false : 'memory' });
