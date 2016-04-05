@@ -4,6 +4,10 @@ A [Yeoman](http://yeoman.io) generator for [KeystoneJS](http://keystonejs.com), 
 
 `yo keystone` will scaffold a new KeystoneJS project for you, and offer to set up blog, gallery, and enquiry (contact form) models + views.
 
+## Fork info
+
+Includes option to use Dust templating engine
+
 ## Getting Started
 
 First up, you'll need Node.js >= 0.10.x and MongoDB >= 2.4.x installed. If you don't have them, follow the **Dependencies** instructions below.

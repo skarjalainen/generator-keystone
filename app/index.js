@@ -85,7 +85,7 @@ KeystoneGenerator.prototype.prompts = function prompts() {
 				default: 'My Site'
 			}, {
 				name: 'viewEngine',
-				message: 'Would you like to use Jade, Swig, Nunjucks or Handlebars for templates? ' + (('[jade | swig | nunjucks | hbs]').grey),
+				message: 'Would you like to use Jade, Swig, Nunjucks, Handlebars or Dust for templates? ' + (('[jade | swig | nunjucks | hbs | dust]').grey),
 				default: 'jade'
 			}, {
 				name: 'preprocessor',
@@ -160,6 +160,8 @@ KeystoneGenerator.prototype.prompts = function prompts() {
 			this.viewEngine = 'swig';
 		} else if (_.contains(['nunjucks', 'nun', 'n'], this.viewEngine.toLowerCase().trim())) {
 			this.viewEngine = 'nunjucks';
+		} else if (_.contains(['dust', 'd'], this.viewEngine.toLowerCase().trim())) {
+			this.viewEngine = 'dust';
 		} else {
 			this.viewEngine = 'jade';
 		}
@@ -422,6 +424,36 @@ KeystoneGenerator.prototype.templates = function templates() {
 				this.directory('templates/default-' + this.viewEngine + '/emails', 'templates/emails');
 			}
 		}
+
+	} else if (this.viewEngine === 'dust') {
+
+		// Copy Dust Templates
+
+		this.mkdir('templates');
+		this.mkdir('templates/views');
+
+		this.directory('templates/default-dust/views/layouts', 'templates/views/layouts');
+		this.directory('templates/default-dust/views/helpers', 'templates/views/helpers');
+		this.directory('templates/default-dust/views/partials', 'templates/views/partials');
+
+		this.template('templates/default-dust/views/index.dust', 'templates/views/index.dust');
+
+		if (this.includeBlog) {
+			this.copy('templates/default-dust/views/blog.dust', 'templates/views/blog.dust');
+			this.copy('templates/default-dust/views/post.dust', 'templates/views/post.dust');
+		}
+
+		if (this.includeGallery) {
+			this.copy('templates/default-dust/views/gallery.dust', 'templates/views/gallery.dust');
+		}
+
+		if (this.includeEnquiries) {
+			this.copy('templates/default-dust/views/contact.dust', 'templates/views/contact.dust');
+			if (this.includeEmail) {
+				this.copy('templates/default-dust/emails/enquiry-notification.dust', 'templates/emails/enquiry-notification.dust');
+			}
+		}
+
 
 	} else {
 
